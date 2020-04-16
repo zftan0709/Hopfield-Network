@@ -34,14 +34,24 @@ class hopfield:
                     
     def update(self,state,idx=None):
         if idx==None:
-            state = np.matmul(self.W,state)
-            state = np.where(state<0,-1,1)
+            # state = np.matmul(self.W,state)
+            # state = np.where(state<0,-1,1)
+            new_state = np.matmul(self.W,state)
+            new_state[new_state < 0] = -1
+            new_state[new_state > 0] = 1
+            new_state[new_state == 0] = state[new_state == 0]
+            state = new_state
         else:
-            state[idx] = np.matmul(self.W[idx],state)
-            state[idx] = np.where(state[idx] < 0,-1,1)
+            # state[idx] = np.matmul(self.W[idx],state)
+            # state[idx] = np.where(state[idx] < 0,-1,1)
+            new_state = np.matmul(self.W[idx],state)
+            if new_state < 0:
+                state[idx] = -1
+            elif new_state > 0:
+                state[idx] = 1
         return state
     
-    def predict(self,mat_input,iteration,asyn=False,async_iteration=100):
+    def predict(self,mat_input,iteration,asyn=False,async_iteration=200):
         input_shape = mat_input.shape
         fig,axs = plt.subplots(1,1)
         axs.axis('off')
@@ -107,7 +117,7 @@ def getOptions():
     return options
     
 if __name__ == '__main__':
-    # np.random.seed(1)
+    np.random.seed(2)
     options = getOptions()
     input_shape = (32,32)
     model = hopfield(input_shape)
@@ -139,6 +149,8 @@ if __name__ == '__main__':
     axs4 = fig.add_subplot(2,1,2)
     axs4.plot(e_list_async)
     axs4.plot(e_list_sync)
+    axs4.annotate(int(e_list_async[-1]),[len(e_list_async)-1,e_list_async[-1]])
+    axs4.annotate(int(e_list_sync[-1]),[len(e_list_sync)-1,e_list_sync[-1]])
     axs4.set_ylabel('Energy')
     axs4.set_xlabel('Iteration')
     axs4.legend(['Async','Sync'])
