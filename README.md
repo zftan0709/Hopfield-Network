@@ -20,13 +20,13 @@ stable states for both methods.
 In this code, the model is set to fixed amount of neurons. Therefore, can only accept 32x32 images
 as shown below as input.  
 <kbd>
-![Training1](/1.png)
+<img src="/1.jpg" alt="Training1" title="Training Image 1" width="100" height="100" />
 </kdb>
 <kbd>
-![Training2](/2.png)
+<img src="/2.jpg" alt="Training2" title="Training Image 2" width="100" height="100" />
 </kbd>
 <kbd>
-![Training3](/3.png)
+<img src="/3.jpg" alt="Training3" title="Training Image 3" width="100" height="100" />
 </kbd>  
        
 ![Training4](/training&input.png)
