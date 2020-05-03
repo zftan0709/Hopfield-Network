@@ -18,10 +18,16 @@ stable states for both methods.
 
 ### Example Input Images
 In this code, the model is set to fixed amount of neurons. Therefore, can only accept 32x32 images
-as shown below as input.  
+as shown below as input. 
+<kbd>
 ![Training1](/1.png)
+</kdb>
+<kbd>
 ![Training2](/2.png)
-![Training3](/3.png)  
+</kbd>
+<kbd>
+![Training3](/3.png)
+</kbd>   
 ![Training4](/training&input.png)
 
 ## Instruction
@@ -38,7 +44,7 @@ python hopfield.py -t 1.PNG 2.PNG 3.PNG 4.PNG 5.PNG 6.PNG -i 100
 ## Result
 Running the command from above will output a final result which includes the training curve for both asynchronous and synchronous method.
 Additionally, the model weights will also be visualize in a figure as well. Example of output result is shown below.  
-[!Result](/result.png)
+![Result](/result.png)
 
 ## Reference
 
