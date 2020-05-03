@@ -56,7 +56,7 @@ class hopfield:
         fig,axs = plt.subplots(1,1)
         axs.axis('off')
         print(input_shape)
-        graph = axs.imshow(mat_input*255)
+        graph = axs.imshow(mat_input*255,cmap='binary')
         mat_input = np.where(mat_input < 0.5,-1,1)
         fig.canvas.draw_idle()
         plt.pause(1)
@@ -117,7 +117,7 @@ def getOptions():
     return options
     
 if __name__ == '__main__':
-    np.random.seed(2)
+    np.random.seed(1)
     options = getOptions()
     input_shape = (32,32)
     model = hopfield(input_shape)
@@ -128,8 +128,10 @@ if __name__ == '__main__':
         print('Start training ',train_data,'...')
         model.addTrain(train_data)
         print(train_data,'training completed!')
-    mat_input = np.where(np.random.rand(input_shape[0],input_shape[1])<0.5,0,1)
-    
+    # mat_input = np.where(np.random.rand(input_shape[0],input_shape[1])<0.5,0,1)
+    # mat_input = np.mean(plt.imread(np.random.choice(options.train)),axis=2) + np.random.uniform(-1,1,input_shape)
+    mat_input = np.mean(plt.imread(options.train[0]),axis=2) + np.random.uniform(-1,1,input_shape)
+    mat_input = np.where(mat_input < 0.5,0,1)
     ### Update states ###
     output_async,e_list_async = model.predict(mat_input,options.iteration,asyn=True)
     output_sync,e_list_sync = model.predict(mat_input,options.iteration,asyn=False)
@@ -157,5 +159,10 @@ if __name__ == '__main__':
     axs4.grid(b=True,which='both')
     axs4.set_xlim(0,max(len(e_list_async),len(e_list_sync))-1)
     fig.canvas.draw_idle()
+    fig2 = plt.figure(2)
+    fig2.suptitle('Model Weights')
+    axs2 = fig2.gca()
+    axs2.imshow(model.W)
+    fig2.canvas.draw_idle()
     plt.pause(0.5)
     input("Press Enter to continue...")
