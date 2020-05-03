@@ -28,9 +28,9 @@ as shown below as input.
 <kbd>
 ![Training3](/3.png)
 </kbd>  
-<kbd> 
+       
 ![Training4](/training&input.png)
-</kdb>
+
 
 ## Instruction
 **Numpy** and **Matplotlib** libraries are required to run the code. 
